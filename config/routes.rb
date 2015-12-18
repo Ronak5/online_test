@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  get "/user_sign_in" => "sessions#create"
+  delete "/user_sign_out" => "sessions#destroy"
+
   resources :users
   resources :answers
   resources :questions
