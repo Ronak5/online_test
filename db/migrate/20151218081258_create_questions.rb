@@ -3,7 +3,7 @@ class CreateQuestions < ActiveRecord::Migration
     create_table :questions do |t|
       t.text :description
 
-      t.timestamps null: false
+      t.timestamps
     end
   end
 end
