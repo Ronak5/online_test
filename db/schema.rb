@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20151218155029) do
     t.string   "name"
     t.string   "contact_no"
     t.string   "address"
-    t.string   "password"
+    t.string   "role"
   end
 
   add_foreign_key "answers", "options"

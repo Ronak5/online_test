@@ -9,7 +9,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :name
       t.string :contact_no
       t.string :address
-      t.string :password
+      t.string :role
     end
   end
 end
