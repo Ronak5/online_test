@@ -37,8 +37,8 @@ ActiveRecord::Schema.define(version: 20151218155029) do
 
   create_table "questions", force: :cascade do |t|
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "users", force: :cascade do |t|
