@@ -53,7 +53,6 @@ var Login = function () {
 	        $('.login-form input').keypress(function (e) {
 	            if (e.which == 13) {
 	                if ($('.login-form').validate().form()) {
-	                    $('.login-form').submit();
 	                }
 	                return false;
 	            }
@@ -76,6 +75,7 @@ var Login = function () {
           {
             $('.alert-danger').html("Please check your email & password !")
             $('.alert-danger', $('.login-form')).show();
+            handleLogin();
           }
         });
       }
@@ -201,17 +201,13 @@ var Login = function () {
 	                },
 	                rpassword: {
 	                    equalTo: "#register_password"
-	                },
-
-	                tnc: {
-	                    required: true
 	                }
+
+
 	            },
 
 	            messages: { // custom messages for radio buttons and checkboxes
-	                tnc: {
-	                    required: "Please accept TNC first."
-	                }
+
 	            },
 
 	            invalidHandler: function (event, validator) { //display error alert on form submit   
@@ -239,14 +235,15 @@ var Login = function () {
 	            },
 
 	            submitHandler: function (form) {
-	                form.submit();
 	            }
+
+
+
 	        });
 
 			$('.register-form input').keypress(function (e) {
 	            if (e.which == 13) {
 	                if ($('.register-form').validate().form()) {
-	                    $('.register-form').submit();
 	                }
 	                return false;
 	            }
@@ -261,6 +258,29 @@ var Login = function () {
 	            jQuery('.login-form').show();
 	            jQuery('.register-form').hide();
 	        });
+
+
+    $("#register_button").click(function(){
+      if ($('.register-form').validate().form()) {
+        $.ajax({
+          url : "/users",
+          type: "POST",
+          format: "JSON",
+          data : { user : {email:$("#register_email").val(), password:$("#register_password").val() ,name:$("#register_name").val() ,contact_no:$("#register_mobile_no").val(),percentile:$("#register_cgpa").val()}, authenticity_token:AUTH_TOKEN},
+          success: function(data, textStatus, jqXHR)
+          {
+            remember_token = data.remember_token;
+            window.location = ("/");
+          },
+          error: function (jqXHR, textStatus, errorThrown)
+          {
+            $('.alert-danger').html("Please check your details !")
+            $('.alert-danger', $('.login-form')).show();
+            handleRegister();
+          }
+        });
+      }
+    });
 	}
     
     return {
