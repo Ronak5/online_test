@@ -1,7 +1,5 @@
 class SessionsController < ApplicationController
   def create
-    p "123"
-    p params
     if params[:email].nil? || params[:password].nil?
       render :json => {}, :status => :unprocessable_entity
     else
@@ -17,7 +15,7 @@ class SessionsController < ApplicationController
 
   def destroy
     user_sign_out
-    render :json => true, :status => :ok
+    redirect_to root_path
   end
 
   def new
