@@ -17,4 +17,5 @@
 /tk
 /.idea
 /.idea/*.*
-
+/tmp
+/tmp/*.*
