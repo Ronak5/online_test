@@ -45,7 +45,7 @@ var Login = function () {
 	            },
 
 	            submitHandler: function (form) {
-					$('#login_form').attr('action','home.html?role=admin');
+					$('#login_form').attr('action','home.html?role=student');
 	                form.submit();
 	            }
 	        });
