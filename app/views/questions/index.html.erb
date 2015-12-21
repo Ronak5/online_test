@@ -4,7 +4,7 @@
 
 <div class="form">
   <!-- BEGIN FORM-->
-  <form action="#" id="form_sample_3" class="form-horizontal" novalidate="novalidate">
+  <div id="form_sample_3" class="form-horizontal" novalidate="novalidate">
     <div class="form-body">
       <h3 class="form-section">Set Question With Option. <small></small></h3>
       <!--<div class="alert alert-danger display-hide" style="display: block;">-->
@@ -78,6 +78,21 @@
         </div>
       </div>
       <!-- End option 4-->
+      <div class="form-group">
+        <label class="control-label col-md-3">Answer
+										<span class="required">
+											 *
+										</span>
+        </label>
+        <div class="col-md-6">
+          <select id="answer">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </select>
+        </div>
+      </div>
     </div>
     <div class="form-actions fluid">
       <div class="col-md-offset-4 col-md-8">
@@ -85,7 +100,7 @@
         <button type="button" class="btn default">Cancel</button>
       </div>
     </div>
-  </form>
+  </div>
   <!-- END FORM-->
 </div>
 
@@ -94,6 +109,32 @@
 
 </html>
 <script type="text/javascript">
+    $(document).ready(function(){
+        $('#add_question').click(function(){
+            var question = $('.add-question').val();
+            var option1 = $('.add-option-1').val();
+            var option2 = $('.add-option-2').val();
+            var option3 = $('.add-option-3').val();
+            var option4 = $('.add-option-4').val();
+            var answer = $('answer').val();
+            var question_data = {question:question,options:[option1,option2,option3,option4]};
+            var a = JSON.stringify(question_data)
+            console.log(a);
+            $.ajax({
+                url: "http://localhost:3000/questions",
+                type: "POST",
+                data: {question:question_data},
+                success: function (data) {
+                    console.log(data);
+                },
+                complete: function () {
 
+                },
+                error: function(data) {
+                    console.log(data);
+                }
+            });
+        });
+    });
 
 </script>
