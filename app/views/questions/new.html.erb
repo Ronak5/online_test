@@ -1,5 +1,17 @@
 <h1>New Question</h1>
-
+<%= form_tag(:controller => "questions", :action => "create") do %>
+    <%= label_tag("Question:") %><br />
+    <%= text_area "question", "question" %><br />
+    <%= label_tag("Option 1:") %><br />
+    <%= text_field "option", "option1" %><br />
+    <%= label_tag("Option 2:") %><br />
+    <%= text_field "option", "option2" %><br />
+    <%= label_tag("Option 3:") %><br />
+    <%= text_field "option", "option3" %><br />
+    <%= label_tag("Option 4:") %><br />
+    <%= text_field "option", "option4" %><br />
+    <%= submit_tag("Submit") %><br />
+<% end %><br />
 <%= render 'form' %>
 
 <%= link_to 'Back', questions_path %>

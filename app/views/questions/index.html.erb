@@ -1,25 +1,99 @@
-<p id="notice"><%= notice %></p>
+<html>
+<body>
 
-<h1>Listing Questions</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="form">
+  <!-- BEGIN FORM-->
+  <form action="#" id="form_sample_3" class="form-horizontal" novalidate="novalidate">
+    <div class="form-body">
+      <h3 class="form-section">Set Question With Option. <small></small></h3>
+      <!--<div class="alert alert-danger display-hide" style="display: block;">-->
+        <!--<button class="close" data-close="alert"></button>-->
+        <!--You have some form errors. Please check below.-->
+      <!--</div>-->
+      <!--<div class="alert alert-success display-hide" style="display: none;">-->
+        <!--<button class="close" data-close="alert"></button>-->
+        <!--Your form validation is successful!-->
+      <!--</div>-->
+      <div class="form-group">
+        <label class="control-label col-md-3">Question
+										<span class="required">
+											 *
+										</span>
+        </label>
+        <div class="col-md-8">
+          <textarea class="form-control add-question" rows="3"></textarea>
+          <span for="name" class="help-block"></span>
+        </div>
+      </div>
 
-  <tbody>
-    <% @questions.each do |question| %>
-      <tr>
-        <td><%= link_to 'Show', question %></td>
-        <td><%= link_to 'Edit', edit_question_path(question) %></td>
-        <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <!-- Begin option 1-->
+      <div class="form-group">
+        <label class="control-label col-md-3">Option 1
+										<span class="required">
+											 *
+										</span>
+        </label>
+        <div class="col-md-6">
+          <input type="text" name="name" data-required="1" class="form-control add-option-1">
+        </div>
+      </div>
+      <!-- End option 1-->
 
-<br>
+      <!-- Begin option 2-->
+      <div class="form-group">
+        <label class="control-label col-md-3">Option 2
+										<span class="required">
+											 *
+										</span>
+        </label>
+        <div class="col-md-6">
+          <input type="text" name="name" data-required="1" class="form-control add-option-2">
+        </div>
+      </div>
+      <!-- End option 2-->
 
-<%= link_to 'New Question', new_question_path %>
+      <!-- Begin option 3-->
+      <div class="form-group">
+        <label class="control-label col-md-3">Option 3
+										<span class="required">
+											 *
+										</span>
+        </label>
+        <div class="col-md-6">
+          <input type="text" name="name" data-required="1" class="form-control add-option-3">
+        </div>
+      </div>
+      <!-- End option 3-->
+
+      <!-- Begin option 4-->
+      <div class="form-group">
+        <label class="control-label col-md-3">Option 4
+										<span class="required">
+											 *
+										</span>
+        </label>
+        <div class="col-md-6">
+          <input type="text" name="name" data-required="1" class="form-control add-option-4">
+        </div>
+      </div>
+      <!-- End option 4-->
+    </div>
+    <div class="form-actions fluid">
+      <div class="col-md-offset-4 col-md-8">
+        <button type="submit" class="btn green" id="add_question">Submit</button>
+        <button type="button" class="btn default">Cancel</button>
+      </div>
+    </div>
+  </form>
+  <!-- END FORM-->
+</div>
+
+
+</body>
+
+</html>
+<script type="text/javascript">
+
+
+</script>
