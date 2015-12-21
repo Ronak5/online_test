@@ -20,13 +20,7 @@ class QuestionsController < ApplicationController
   # POST /questions.json
   def create
     params.permit!
-    p params
-
-    p params[:question_data][:description]
-    p params[:question_data][:options]
-    p params[:question_data][:answer]
     @question = Question.new(:description => params[:question_data][:description])
-    p @question
     if @question.save
         p @question.id
         params[:question_data][:options].each_with_index  do |opt,index|
