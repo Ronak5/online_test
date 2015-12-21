@@ -1,14 +1,17 @@
 class SessionsController < ApplicationController
   def create
-    @user = User.authenticate(params[:email], params[:password])
-    if @user.nil?
-      format.html { redirect_to users_url, notice: 'Incorrect username and password.' }
-      format.json { render json: @user.errors, status: :unprocessable_entity }
+    p "123"
+    p params
+    if params[:email].nil? || params[:password].nil?
+      render :json => {}, :status => :unprocessable_entity
     else
-      # @user.reset_remember_token!
-      user_sign_in(@user)
-      format.html { redirect_to users_url, notice: 'login successfully.' }
-      format.json { render json: true, status: :ok }
+      @user = User.authenticate(params[:email], params[:password])
+      if @user.nil?
+        render :json => {}, :status => :unauthorized
+      else
+        sign_in(@user)
+        render :json => @user, :status => :ok
+      end
     end
   end
 

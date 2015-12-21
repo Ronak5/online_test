@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
   root :to => "home#index"
-
-  get "/user_sign_in" => "sessions#create"
+  get 'student' => 'home#dashboard', :as => 'dashboard'
+  post "/user_sign_in" => "sessions#create"
   delete "/user_sign_out" => "sessions#destroy"
 
   resources :users

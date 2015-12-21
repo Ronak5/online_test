@@ -18,16 +18,15 @@ var OnlineTest = function () {
             }
 
             var params = getParams();
-            var role = unescape(params["role"]);
-            if (role == 'admin') {
-                $('.admin-panel').removeClass("hidden");
-                $('.exam-panel').addClass("hidden");
-            }
-            else {
+//            var role = unescape(params["role"]);
+//            if (role == 'admin') {
+//                $('.admin-panel').removeClass("hidden");
+//                $('.exam-panel').addClass("hidden");
+//            }
+//            else {
                 $('.exam-panel').removeClass("hidden");
                 $('.admin-panel').addClass("hidden");
-            }
-
+//            }
 
             // save question for student
 

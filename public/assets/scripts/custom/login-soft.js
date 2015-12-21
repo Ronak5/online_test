@@ -6,8 +6,10 @@ var Login = function () {
 	            errorClass: 'help-block', // default input error message class
 	            focusInvalid: false, // do not focus the last invalid input
 	            rules: {
-	                username: {
-	                    required: true
+                  email: {
+	                    required: true,
+                      email: true
+
 	                },
 	                password: {
 	                    required: true
@@ -45,8 +47,6 @@ var Login = function () {
 	            },
 
 	            submitHandler: function (form) {
-					$('#login_form').attr('action','home.html?role=student');
-	                form.submit();
 	            }
 	        });
 
@@ -58,6 +58,28 @@ var Login = function () {
 	                return false;
 	            }
 	        });
+
+
+    $("#login_button").click(function(){
+      if ($('.login-form').validate().form()) {
+        $.ajax({
+          url : "/user_sign_in",
+          type: "POST",
+          format: "JSON",
+          data : {email:$("#login_email").val(), password:$("#login_password").val(), authenticity_token:AUTH_TOKEN},
+          success: function(data, textStatus, jqXHR)
+          {
+            remember_token = data.remember_token;
+            window.location = ("/student?remember_token="+remember_token);
+          },
+          error: function (jqXHR, textStatus, errorThrown)
+          {
+            $('.alert-danger').html("Please check your email & password !")
+            $('.alert-danger', $('.login-form')).show();
+          }
+        });
+      }
+    });
 	}
 
 	var handleForgetPassword = function () {
@@ -105,7 +127,6 @@ var Login = function () {
 	        $('.forget-form input').keypress(function (e) {
 	            if (e.which == 13) {
 	                if ($('.forget-form').validate().form()) {
-	                    $('.forget-form').submit();
 	                }
 	                return false;
 	            }
