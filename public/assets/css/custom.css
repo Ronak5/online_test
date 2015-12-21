@@ -1,1 +1,61 @@
 /* here you can put your own css to customize and override the theme */
+
+
+
+.start_test_button {
+    display: inline-block;
+    margin: 10px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow:    0 8px 0 #c50c00, 0 15px 20px rgba(232, 232, 232, 0.35);
+    -moz-box-shadow: 0 8px 0 #c50c00, 0 15px 20px rgba(232, 232, 232, 0.35);
+    box-shadow: 0 8px 0 #c50c00, 0 15px 20px rgba(0, 0, 0, .35);
+    -webkit-transition: -webkit-box-shadow .1s ease-in-out;
+    -moz-transition: -moz-box-shadow .1s ease-in-out;
+    -o-transition: -o-box-shadow .1s ease-in-out;
+    transition: box-shadow .1s ease-in-out;
+    font-size: 36px;
+    color: #efefef;
+}
+
+.start_test_button span {
+    display: inline-block;
+    padding: 20px 30px;
+    background-color: #0e0e0e;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(hsla(0, 0%, 5%, 0.80)), to(hsla(0, 0%, 81%, 0.45)));
+    background-image: -webkit-linear-gradient(hsla(0, 0%, 5%, 0.80), hsla(0, 0%, 73%, 0.20));
+    background-image: -moz-linear-gradient(hsla(0, 0%, 5%, 0.80), hsla(0, 0%, 57%, 0.20));
+    background-image: -o-linear-gradient(hsla(0, 0%, 5%, 0.58), hsla(0, 0%, 57%, 0.20));
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
+    -moz-box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
+    box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
+    font-family: 'Pacifico', Arial, sans-serif;
+    line-height: 1;
+    text-shadow: 0 -1px 1px rgba(11, 11, 11, 0.82);
+    -webkit-transition: background-color .2s ease-in-out, -webkit-transform .1s ease-in-out;
+    -moz-transition: background-color .2s ease-in-out, -moz-transform .1s ease-in-out;
+    -o-transition: background-color .2s ease-in-out, -o-transform .1s ease-in-out;
+    transition: background-color .2s ease-in-out, transform .1s ease-in-out;
+}
+
+.start_test_button:hover span {
+    background-color: #0e0e0e;
+    text-shadow: 0 -1px 1px rgba(14, 14, 14, 0.90), 0 0 5px rgba(255, 255, 255, .8);
+}
+
+.start_test_button:active, .button:focus {
+    -webkit-box-shadow:    0 8px 0 #c50c00, 0 12px 10px rgba(209, 209, 209, 0.30);
+    -moz-box-shadow: 0 8px 0 #c50c00, 0 12px 10px rgba(188, 188, 188, 0.30);
+    box-shadow:    0 8px 0 #c50c00, 0 12px 10px rgba(147, 147, 147, 0.30);
+}
+
+.start_test_button:active span {
+    -webkit-transform: translate(0, 4px);
+    -moz-transform: translate(0, 4px);
+    -o-transform: translate(0, 4px);
+    transform: translate(0, 4px);
+}
