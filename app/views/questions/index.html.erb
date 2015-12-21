@@ -111,19 +111,21 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $('#add_question').click(function(){
+            console.log("?sd")
             var question = $('.add-question').val();
             var option1 = $('.add-option-1').val();
             var option2 = $('.add-option-2').val();
             var option3 = $('.add-option-3').val();
             var option4 = $('.add-option-4').val();
-            var answer = $('answer').val();
-            var question_data = {question:question,options:[option1,option2,option3,option4]};
+            var answer = $('#answer').val();
+            var opt_array = [option1,option2,option3,option4];
+            var question_data = {description:question,options:opt_array,answer:answer-1};
             var a = JSON.stringify(question_data)
             console.log(a);
             $.ajax({
-                url: "http://localhost:3000/questions",
+                url: "/questions",
                 type: "POST",
-                data: {question:question_data},
+                data: {question_data:question_data},
                 success: function (data) {
                     console.log(data);
                 },

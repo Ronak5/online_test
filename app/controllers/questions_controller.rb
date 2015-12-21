@@ -1,6 +1,4 @@
 class QuestionsController < ApplicationController
-  before_action :set_question, only: [:show, :edit, :update, :destroy]
-
   # GET /questions
   # GET /questions.json
 
@@ -21,9 +19,22 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    @question = Question.new(params[:question])
+    params.permit!
+    p params
+
+    p params[:question_data][:description]
+    p params[:question_data][:options]
+    p params[:question_data][:answer]
+    @question = Question.new(:description => params[:question_data][:description])
     p @question
     if @question.save
+        p @question.id
+        params[:question_data][:options].each_with_index  do |opt,index|
+          option = Option.create(:question_id => @question.id, :description => opt)
+          if index == params[:question_data][:answer].to_i
+            Answer.create(:question_id => @question.id, :option_id => option.id)
+          end
+        end
       render :json => @question, :status => :ok
     else
       render :nothing => true, :status => :unprocessable_entity
@@ -48,10 +59,7 @@ class QuestionsController < ApplicationController
   # DELETE /questions/1.json
   def destroy
     @question.destroy
-    respond_to do |format|
-      format.html { redirect_to questions_url, notice: 'Question was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+
   end
 
   private
