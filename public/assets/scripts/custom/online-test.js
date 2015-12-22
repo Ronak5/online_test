@@ -157,6 +157,9 @@ var OnlineTest = function () {
               success: function(data, textStatus, jqXHR)
               {
                if (data.id > 0) {
+                 console.log("****1******")
+                 console.log(data.id)
+                 console.log(data)
                  $("#question_caption").html(data.description);
                  $("#question_caption").attr("data_question_id", data.id);
 
@@ -170,6 +173,9 @@ var OnlineTest = function () {
                }
                else
                {
+                 console.log("****2******")
+                 console.log(data.id)
+                 console.log(data)
                  show_alert_and_logout();
                }
                modal_box.modal('hide');
