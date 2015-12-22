@@ -4,12 +4,12 @@ Rails.application.routes.draw do
   get 'student' => 'home#dashboard', :as => 'dashboard'
   post "/user_sign_in" => "sessions#create"
   delete "/user_sign_out" => "sessions#destroy"
-
+  get 'questions/get_random_question' => 'questions#get_random_question'
   resources :users
   resources :answers
   resources :questions
   resources :options
-
+  resources :results
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -28,61 +28,108 @@ var OnlineTest = function () {
                 $('.admin-panel').addClass("hidden");
 //            }
 
-            // save question for student
 
-            $('#save_answer').click(function() {
-                var question_id = $('.test-question').val();
-                //var option_id = $('.add-question').val();
-            });
 
-            var answer = function() {
-                var params = getParams();
-                var auth_token = unescape(params["token"]);
-                console.log(auth_token);
-                $.ajax({
-                    url: '',
-                    type: "POST",
-                    headers : {
-                        'Authorization' : auth_token
-                    },
-                    success: function (data) {
 
-                    },
-                    complete: function () {
-
-                    },
-                    error: function(data) {
-                        console.log(data);
-                    }
-                });
+          $("#save_answer_btn").click(function(){
+            if (!$("input[name='optionsRadios']:checked").val()) {
+              bootbox.alert('Nothing is selected , first select answer to save !');
+              return false;
             }
+            else
+            {
+              save_answer_and_move_next();
+            }
+          })
 
+          var save_answer_and_move_next = function(){
+            var user_id = $("#current_user").attr('data_user_id');
+            var question_id = $("#question_caption").attr('data_question_id');
+            var option_id =$('input[name=optionsRadios]:checked').attr("data_option_id");
+            var input_data = {user_id : user_id,question_id : question_id , option_id : option_id};
+            $.ajax({
+              url : "/results",
+              type: "POST",
+              format: "JSON",
+              data: {authenticity_token:AUTH_TOKEN, result:input_data},
+              success: function(data, textStatus, jqXHR)
+              {
+                $.gritter.add({
+                  position: 'top-right',
+                  title: 'Success!',
+                  text: 'Answer submitted successfully !',
+                  sticky: false,
+                  time: 4000
+                });
+              },
+              error: function (jqXHR, textStatus, errorThrown)
+              {
+                $.gritter.add({
+                  position: 'top-right',
+                  title: 'Something went wrong!',
+                  text: 'Answer could not be added !',
+                  sticky: false,
+                  time: 4000
+                });
+              }
+            });
+            fetch_question();
+          }
+
+          $("#next_question_btn").click(function(){
+            fetch_question();
+          })
 
           $("#start_test_button").click(function(){
-            bootbox.confirm("As soon as you click on OK , your time will start <br/> <ol><li>No negative marking</li><li>Time durartion is 30mins</li><li>Total 45 questions</li></ol><b style='color: red'>Note : Do not open any other tab or search in other window your test will be auto submitted & session will be expired.</b>", function (result) {
+            bootbox.confirm("As soon as you click on OK , your time will start <br/> <ol><li>Try to attempt as many question as you can.</li><li>You have 30 Minutes.</li><li>Your Form will be locked & you will be loged out after 30mins automatically.</li><li>No negative marking.</li><li>Click SAVE to submit your answer & move next</li><li>Click NEXT if you DONT want to save your answer & move next.</li><li>Click SUBMIT if you are done before time gets over.</li><li>Dont play around login/logout , its ONE TIME LOGIN</li></ol><b style='color: red'>Note : Do not open any other tab or search in other window your test will be auto submitted & session will be expired.</b>", function (result) {
               if (result == true) {
                   show_question_screen();
+                  fetch_question();
                   start_timer();
                 }
             });
           });
 
+          var fetch_question  = function(){
+            $.ajax({
+              url : "/questions/get_random_question",
+              type: "GET",
+              format: "JSON",
+              success: function(data, textStatus, jqXHR)
+              {
+                $("#question_caption").html(data.description);
+                $("#question_caption").attr("data_question_id",data.id);
+
+                jQuery.each(data.get_options, function(index, item) {
+                  console.log(index)
+                  var x = index+1
+                  $("#option_desc_"+x).html(item.description);
+                  $("#optionsRadios"+x).attr("data_option_id",item.id);
+                  console.log(item)
+
+                  // do something with `item` (or `this` is also `item` if you like)
+                });
+
+              },
+              error: function (jqXHR, textStatus, errorThrown)
+              {
+
+              }
+            });
+          }
+
           var show_question_screen = function(){
             $("#welcome_screen").hide();
             $("#question_container_screen").show();
-            start_timer();
           }
 
 
           var start_timer = function(){
-            console.log("timer")
             var counter = 30;
             $("#timer_container").html(counter);
             var interval = setInterval(function() {
-              console.log("yes")
               counter--;
               // Display 'counter' wherever you want to display it.
-              console.log(counter)
               $("#timer_container").html(counter);
 
               if (counter > 20) {
