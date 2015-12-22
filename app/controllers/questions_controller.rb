@@ -4,7 +4,12 @@ class QuestionsController < ApplicationController
     @question = Question.order("RANDOM()").first
     total_count = Question.all.count
     p total_count
+    p @question.id
+    p params[:user_id]
+    p Result.where(:question_id => @question.id , :user_id => params[:user_id]).count
     while (Result.where(:question_id => @question.id , :user_id => params[:user_id]).count != 0)
+      p @question.id
+      p params[:user_id]
       if total_count == 0
         break;
       end
