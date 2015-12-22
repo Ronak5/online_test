@@ -3,6 +3,7 @@ var OnlineTest = function () {
     return {
         //main function to initiate the module
         init: function () {
+          var question_attempted = 0;
           $("#question_container_screen").hide();
             var getParams = function() {
                 var params = {},
@@ -44,7 +45,6 @@ var OnlineTest = function () {
                   async: true,
                   success: function(data, textStatus, jqXHR)
                   {
-                    console.log("yes")
 
                   },
                   error: function (jqXHR, textStatus, errorThrown)
@@ -76,10 +76,16 @@ var OnlineTest = function () {
               bootbox.alert('Nothing is selected , first select answer to save !');
               return false;
             }
+            else if(question_attempted >= 45)
+            {
+              show_alert_and_logout();
+            }
             else
             {
+              question_attempted = question_attempted +1;
               save_answer_and_move_next();
             }
+
           })
 
           var save_answer_and_move_next = function(){
@@ -139,16 +145,19 @@ var OnlineTest = function () {
               format: "JSON",
               success: function(data, textStatus, jqXHR)
               {
-                $("#question_caption").html(data.description);
-                $("#question_caption").attr("data_question_id",data.id);
 
-                jQuery.each(data.get_options, function(index, item) {
-                  var x = index+1
-                  $("#option_desc_"+x).html(item.description);
-                  $("#optionsRadios"+x).attr("data_option_id",item.id);
+               if (data) {
+                 $("#question_caption").html(data.description);
+                 $("#question_caption").attr("data_question_id", data.id);
 
-                  // do something with `item` (or `this` is also `item` if you like)
-                });
+                 jQuery.each(data.get_options, function (index, item) {
+                   var x = index + 1
+                   $("#option_desc_" + x).html(item.description);
+                   $("#optionsRadios" + x).attr("data_option_id", item.id);
+
+                   // do something with `item` (or `this` is also `item` if you like)
+                 });
+               }
 
               },
               error: function (jqXHR, textStatus, errorThrown)
