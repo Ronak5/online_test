@@ -5,24 +5,10 @@ class QuestionsController < ApplicationController
     offset = rand(total_count)
     p params[:user_id]
     @question = Question.offset(offset).first
-    while (Result.where(:question_id => @question.id , :user_id => params[:user_id]).count != 0 && total_count > 0)
-      p params[:user_id]
-      offset = rand(total_count)
+    while (Result.where(:question_id => @question.id , :user_id => params[:user_id]).count != 0)
       @question = Question.offset(offset).first
-      total_count = total_count - 1
-      p "total count inside loop"
     end
-
-    if total_count == 0
-      @question = Question.new(:id => -1, :description => "no question")
-      p "1"
-      p @question
-      render :json => @question, :status => :ok
-    else
-      p "2"
-      p @question
-      render :json => @question.to_json(:methods => [:get_options] ), :status => :ok
-    end
+    render :json => @question.to_json(:methods => [:get_options] ), :status => :ok
   end
 
 
