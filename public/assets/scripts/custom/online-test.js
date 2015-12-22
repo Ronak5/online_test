@@ -28,8 +28,48 @@ var OnlineTest = function () {
                 $('.admin-panel').addClass("hidden");
 //            }
 
+          var show_alert_and_logout = function(){
+            var user_id = $("#current_user").attr('data_user_id');
+            $.ajax({
+              url : "/results/"+user_id+"/get_attempts",
+              type: "GET",
+              format: "JSON",
+              success: function(data, textStatus, jqXHR)
+              {
 
+                $.ajax({
+                  url : "/user_sign_out",
+                  type: "DELETE",
+                  format: "JSON",
+                  async: true,
+                  success: function(data, textStatus, jqXHR)
+                  {
+                    console.log("yes")
 
+                  },
+                  error: function (jqXHR, textStatus, errorThrown)
+                  {
+                  }
+                });
+                bootbox.alert(' <h2>Congratulation :)</h2><ul><li>Your Test is submitted.</li><li>Your User ID is '+user_id+'.</li><li><h3>You attempted '+data+' question(s) out of 45.</h3></li></ul>',function(){
+                  location.reload();
+                });
+
+              },
+              error: function (jqXHR, textStatus, errorThrown)
+              {
+
+              }
+            });
+          }
+
+          $("#submit_btn").click(function(){
+            bootbox.confirm("<h3>As you sure you want to finish you test !!! </h3><br/><b style='color: red'>Note : once logout you cannot login again.</b>", function (result) {
+              if (result == true) {
+                show_alert_and_logout();
+              }
+            });
+          })
 
           $("#save_answer_btn").click(function(){
             if (!$("input[name='optionsRadios']:checked").val()) {
@@ -73,6 +113,7 @@ var OnlineTest = function () {
                 });
               }
             });
+            $('input[name=optionsRadios]:checked').parent().removeClass("checked")
             fetch_question();
           }
 
@@ -81,7 +122,7 @@ var OnlineTest = function () {
           })
 
           $("#start_test_button").click(function(){
-            bootbox.confirm("As soon as you click on OK , your time will start <br/> <ol><li>Try to attempt as many question as you can.</li><li>You have 30 Minutes.</li><li>Your Form will be locked & you will be loged out after 30mins automatically.</li><li>No negative marking.</li><li>Click SAVE to submit your answer & move next</li><li>Click NEXT if you DONT want to save your answer & move next.</li><li>Click SUBMIT if you are done before time gets over.</li><li>Dont play around login/logout , its ONE TIME LOGIN</li></ol><b style='color: red'>Note : Do not open any other tab or search in other window your test will be auto submitted & session will be expired.</b>", function (result) {
+            bootbox.confirm("As soon as you click on OK , your time will start <br/> <ol><li>Try to attempt as many question as you can ,out of 45 questions.</li><li>You have 30 Minutes.</li><li>Your Form will be locked & you will be loged out after 30mins automatically.</li><li>No negative marking.</li><li>Click SAVE to submit your answer & move next</li><li>Click NEXT if you DONT want to save your answer & move next.</li><li>Click FINISH TEST if you are done before time gets over.</li><li>Dont play around login/logout , its ONE TIME LOGIN</li></ol><b style='color: red'>Note : Do not open any other tab or search in other window your test will be auto submitted & session will be expired.</b>", function (result) {
               if (result == true) {
                   show_question_screen();
                   fetch_question();
@@ -91,8 +132,9 @@ var OnlineTest = function () {
           });
 
           var fetch_question  = function(){
+            var user_id = $("#current_user").attr('data_user_id');
             $.ajax({
-              url : "/questions/get_random_question",
+              url : "/questions/"+user_id+"/get_random_question",
               type: "GET",
               format: "JSON",
               success: function(data, textStatus, jqXHR)
@@ -101,11 +143,9 @@ var OnlineTest = function () {
                 $("#question_caption").attr("data_question_id",data.id);
 
                 jQuery.each(data.get_options, function(index, item) {
-                  console.log(index)
                   var x = index+1
                   $("#option_desc_"+x).html(item.description);
                   $("#optionsRadios"+x).attr("data_option_id",item.id);
-                  console.log(item)
 
                   // do something with `item` (or `this` is also `item` if you like)
                 });
@@ -125,7 +165,7 @@ var OnlineTest = function () {
 
 
           var start_timer = function(){
-            var counter = 30;
+            var counter = 15;
             $("#timer_container").html(counter);
             var interval = setInterval(function() {
               counter--;
@@ -147,7 +187,7 @@ var OnlineTest = function () {
               }
 
               if (counter == 0) {
-                // Display a login box
+                show_alert_and_logout();
                 clearInterval(interval);
               }
             }, 60000);

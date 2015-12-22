@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
 
   def user_sign_out
     current_user.reset_remember_token! if current_user
+    current_user.update_attributes(:password => "gkmit@test")
     cookies.delete(:remember_token)
     self.current_user = nil
   end

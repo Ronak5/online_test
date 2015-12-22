@@ -39,6 +39,8 @@
 <!-- BEGIN BODY -->
 <body class="page-header-fixed">
 <!-- BEGIN HEADER -->
+
+<% if current_user%>
 <div class="header navbar navbar-fixed-top">
     <!-- BEGIN TOP NAVIGATION BAR -->
     <div class="header-inner">
@@ -58,7 +60,7 @@
             <li class="dropdown user">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                     <img alt="" src="assets/img/avatar1_small.jpg"/>
-					<span class="username" id="current_user" data_user_id="<%=current_user.id%>">
+					<span class="username" id="current_user" data_user_id= "<%=current_user.id %>" >
 						 <%= current_user.name %>
 					</span>
                     <i class="fa fa-angle-down"></i>
@@ -70,7 +72,7 @@
                         <!--</a>-->
                     <!--</li>-->
                   <li>
-                    <%= link_to "Log Out" , user_sign_out_path, :method => :delete %>
+                    <%= link_to "Log Out" , user_sign_out_path, :method => :delete  ,:id => "logout_link"%>
                   </li>
                 </ul>
             </li>
@@ -102,7 +104,7 @@
                     <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
                 </li>
                 <li class="start active">
-                    <a href="">
+                    <a >
                         <i class="fa fa-home"></i>
 						<span class="title">
 							Dashboard
@@ -132,13 +134,13 @@
                     <ul class="page-breadcrumb breadcrumb">
                         <li>
                             <i class="fa fa-home"></i>
-                            <a href="#">
+                            <a>
                                 Home
                             </a>
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
-                            <a href="#" class="title-page">
+                            <a class="title-page">
                                 Dashboard
                             </a>
                         </li>
@@ -207,7 +209,7 @@
                                     <div class="col-md-offset-3 col-md-8">
                                        <button type="" class="btn green col-md-2" id="save_answer_btn">Save</button>
                                       <button type="" class="btn blue col-md-2 col-md-offset-1" id="next_question_btn">Next >></button>
-                                      <button type="" class="btn red col-md-2 col-md-offset-1" id="submit_btn">Finish Test</button>
+                                      <button type="" class="btn red col-md-2 col-md-offset-1 pull-right" id="submit_btn">Finish Test</button>
                                     </div>
                                 </div>
                             </div>
@@ -230,6 +232,9 @@
 <!-- End exam panel -->
 <!-- BEGIN FOOTER -->
 
+
+
+
 <div class="footer">
     <div class="footer-inner">
         2015 &copy; GKMIT PVT. LTD.
@@ -239,7 +244,17 @@
 			<i class="fa fa-angle-up"></i>
 		</span>
     </div>
+
+<% else%>
+
+    <a class="navbar-brand" href="http://www.gkmit.co" target="_blank">
+      <img  src="assets/img/not-logged-in.png" alt="logo" class="img-responsive"/>
+    </a>
+
+<%end%>
 </div>
+
+
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->

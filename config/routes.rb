@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   get 'student' => 'home#dashboard', :as => 'dashboard'
   post "/user_sign_in" => "sessions#create"
   delete "/user_sign_out" => "sessions#destroy"
-  get 'questions/get_random_question' => 'questions#get_random_question'
+  get 'questions/:user_id/get_random_question' => 'questions#get_random_question'
+  get 'results/:user_id/get_attempts' => 'results#get_attempts'
+
   resources :users
   resources :answers
   resources :questions
