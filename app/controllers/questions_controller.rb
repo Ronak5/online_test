@@ -1,34 +1,12 @@
 class QuestionsController < ApplicationController
 
   def get_random_question
-    @question = Question.first
-    total_count = Question.all.count
-    p total_count
-    p @question.id
-    p params[:user_id]
-    p Result.where(:question_id => @question.id , :user_id => params[:user_id]).count
+    @question = Question.order("RANDOM()").first
     while (Result.where(:question_id => @question.id , :user_id => params[:user_id]).count != 0)
-      p @question.id
       p params[:user_id]
-      if total_count == 0
-        break;
-      end
-      @question = Question.find(@question.id +1)
-      total_count = total_count - 1
-      p "total count inside loop"
-      p total_count
+      @question = Question.order("RANDOM()").first
     end
-
-    if total_count == 0
-      @question = Question.new(:id => -1, :description => "no question")
-      p "1"
-      p @question
-      render :json => @question, :status => :ok
-    else
-      p "2"
-      p @question
-      render :json => @question.to_json(:methods => [:get_options] ), :status => :ok
-    end
+    render :json => @question.to_json(:methods => [:get_options] ), :status => :ok
   end
 
 
