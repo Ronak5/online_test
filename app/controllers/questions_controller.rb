@@ -10,9 +10,13 @@ class QuestionsController < ApplicationController
       @question = Question.order("RANDOM()").first
       total_count = total_count - 1
     end
+
     if total_count == 0
-      render :nothing => true, :status => :ok
+      @question = Question.new(:id => -1, :description => "no question")
+      p "1"
+      render :json => @question, :status => :ok
     else
+      p "2"
       render :json => @question.to_json(:methods => [:get_options] ), :status => :ok
     end
   end

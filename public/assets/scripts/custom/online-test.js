@@ -97,6 +97,7 @@ var OnlineTest = function () {
               url : "/results",
               type: "POST",
               format: "JSON",
+              async: false,
               data: {authenticity_token:AUTH_TOKEN, result:input_data},
               success: function(data, textStatus, jqXHR)
               {
@@ -146,10 +147,16 @@ var OnlineTest = function () {
               url : "/questions/"+user_id+"/get_random_question",
               type: "GET",
               format: "JSON",
+              async: false,
+              beforeSend: function() {
+                modal_box = bootbox.dialog({
+                  closeButton: false,
+                  message: '<b>Please wait ! Question is loading ...</b>'
+                });
+              },
               success: function(data, textStatus, jqXHR)
               {
-
-               if (data) {
+               if (data.id > 0) {
                  $("#question_caption").html(data.description);
                  $("#question_caption").attr("data_question_id", data.id);
 
@@ -163,15 +170,9 @@ var OnlineTest = function () {
                }
                else
                {
-                 $.gritter.add({
-                   position: 'top-right',
-                   title: 'Congratulations!',
-                   text: 'You have attempted all the questions ! contact GKMIT guy near u ',
-                   sticky: false,
-                   time: 4000
-                 });
+                 show_alert_and_logout();
                }
-
+               modal_box.modal('hide');
               },
               error: function (jqXHR, textStatus, errorThrown)
               {
