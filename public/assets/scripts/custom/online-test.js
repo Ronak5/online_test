@@ -62,7 +62,7 @@ var OnlineTest = function () {
               }
             });
           }
-
+          $("#submit_btn").unbind();
           $("#submit_btn").click(function(){
             bootbox.confirm("<h3>As you sure you want to finish you test !!! </h3><br/><b style='color: red'>Note : once logout you cannot login again.</b>", function (result) {
               if (result == true) {
@@ -70,7 +70,7 @@ var OnlineTest = function () {
               }
             });
           })
-
+          $("#save_answer_btn").unbind();
           $("#save_answer_btn").click(function(){
             if (!$("input[name='optionsRadios']:checked").val()) {
               bootbox.alert('Nothing is selected , first select answer to save !');
@@ -123,10 +123,13 @@ var OnlineTest = function () {
             fetch_question();
           }
 
+          $("#next_question_btn").unbind();
           $("#next_question_btn").click(function(){
             fetch_question();
           })
 
+
+          $("#start_test_button").unbind();
           $("#start_test_button").click(function(){
             bootbox.confirm("As soon as you click on OK , your time will start <br/> <ol><li>Try to attempt as many question as you can ,out of 45 questions.</li><li>You have 30 Minutes.</li><li>Your Form will be locked & you will be loged out after 30mins automatically.</li><li>No negative marking.</li><li>Click SAVE to submit your answer & move next</li><li>Click NEXT if you DONT want to save your answer & move next.</li><li>Click FINISH TEST if you are done before time gets over.</li><li>Dont play around login/logout , its ONE TIME LOGIN</li></ol><b style='color: red'>Note : Do not open any other tab or search in other window your test will be auto submitted & session will be expired.</b>", function (result) {
               if (result == true) {
@@ -156,6 +159,16 @@ var OnlineTest = function () {
                    $("#optionsRadios" + x).attr("data_option_id", item.id);
 
                    // do something with `item` (or `this` is also `item` if you like)
+                 });
+               }
+               else
+               {
+                 $.gritter.add({
+                   position: 'top-right',
+                   title: 'Congratulations!',
+                   text: 'You have attempted all the questions ! contact GKMIT guy near u ',
+                   sticky: false,
+                   time: 4000
                  });
                }
 
