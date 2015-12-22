@@ -3,10 +3,10 @@ class QuestionsController < ApplicationController
   def get_random_question
     @question = Question.order("RANDOM()").first
     total_count = Question.all.count
-    while (Result.where(:question_id => @question.id , :user_id => params[:user_id]).count != 0 && total_count > 0)
-      @question = Question.order("RANDOM()").first
-      total_count = total_count - 1
-    end
+    # while (Result.where(:question_id => @question.id , :user_id => params[:user_id]).count != 0 && total_count > 0)
+    #   @question = Question.order("RANDOM()").first
+    #   total_count = total_count - 1
+    # end
     if total_count == 0
       render :nothing => true, :status => :ok
     else

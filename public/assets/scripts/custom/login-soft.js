@@ -58,7 +58,7 @@ var Login = function () {
 	            }
 	        });
 
-
+    $("#login_button").unbind();
     $("#login_button").click(function(){
       if ($('.login-form').validate().form()) {
         $.ajax({
@@ -260,6 +260,8 @@ var Login = function () {
 	        });
 
 
+
+    $("#register_button").unbind();
     $("#register_button").click(function(){
       if ($('.register-form').validate().form()) {
         $.ajax({
@@ -288,8 +290,7 @@ var Login = function () {
         init: function () {
         	
             handleLogin();
-            handleForgetPassword();
-            handleRegister();        
+            handleRegister();
 	       
 	       	$.backstretch([
 		        "assets/img/bg/1.jpg",
