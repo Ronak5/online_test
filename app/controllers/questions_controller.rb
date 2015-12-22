@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
 
   def get_random_question
-    @question = Question.order("RANDOM()").first
+    @question = Question.first
     total_count = Question.all.count
     p total_count
     p @question.id
@@ -13,7 +13,7 @@ class QuestionsController < ApplicationController
       if total_count == 0
         break;
       end
-      @question = Question.order("RANDOM()").first
+      @question = Question.find(@question.id +1)
       total_count = total_count - 1
       p "total count inside loop"
       p total_count
