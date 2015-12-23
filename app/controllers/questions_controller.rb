@@ -3,11 +3,13 @@ class QuestionsController < ApplicationController
   def get_random_question
     total_count = Question.all.count
     offset = rand(total_count)
-    p params[:user_id]
     @question = Question.offset(offset).first
     while (Result.where(:question_id => @question.id , :user_id => params[:user_id]).count != 0)
       @question = Question.offset(offset).first
     end
+    p "*****"
+    p @question.id
+    p "*****"
     render :json => @question.to_json(:methods => [:get_options] ), :status => :ok
   end
 
