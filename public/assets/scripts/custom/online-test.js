@@ -156,7 +156,7 @@ var OnlineTest = function () {
               },
               success: function(data, textStatus, jqXHR)
               {
-               if (data.id > 0) {
+               if (data && data.id > 0) {
                  console.log("****1******")
                  console.log(data.id)
                  console.log(data)
@@ -171,18 +171,13 @@ var OnlineTest = function () {
                    // do something with `item` (or `this` is also `item` if you like)
                  });
                }
-               else
-               {
-                 console.log("****2******")
-                 console.log(data.id)
-                 console.log(data)
-                 show_alert_and_logout();
-               }
+               
                modal_box.modal('hide');
               },
               error: function (jqXHR, textStatus, errorThrown)
               {
-
+                modal_box.modal('hide');
+                show_alert_and_logout();
               }
             });
           }
