@@ -72,11 +72,11 @@ var OnlineTest = function () {
           })
           $("#save_answer_btn").unbind();
           $("#save_answer_btn").click(function(){
-            if (!$("input[name='optionsRadios']:checked").val() && question_attempted <= 45) {
+            if (!$("input[name='optionsRadios']:checked").val() && question_attempted < 45) {
               bootbox.alert('Nothing is selected , first select answer to save !');
               return false;
             }
-            else if(question_attempted > 45)
+            else if(question_attempted >= 45)
             {
               show_alert_and_logout();
             }
@@ -163,9 +163,6 @@ var OnlineTest = function () {
               success: function(data, textStatus, jqXHR)
               {
                if (data && data.id > 0) {
-                 console.log("****1******")
-                 console.log(data.id)
-                 console.log(data)
                  $("#question_caption").html(data.description);
                  $("#question_caption").attr("data_question_id", data.id);
 
