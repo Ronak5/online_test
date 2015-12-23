@@ -138,7 +138,7 @@ var OnlineTest = function () {
 
           $("#start_test_button").unbind();
           $("#start_test_button").click(function(){
-            bootbox.confirm("As soon as you click on OK , your time will start <br/> <ol><li>Try to attempt as many question as you can ,out of 45 questions.</li><li>You have 30 Minutes.</li><li>Your Form will be locked & you will be loged out after 30mins automatically.</li><li>No negative marking.</li><li>Click SAVE to submit your answer & move next</li><li>Click NEXT if you DONT want to save your answer & move next.</li><li>Click FINISH TEST if you are done before time gets over.</li><li>Dont play around login/logout , its ONE TIME LOGIN</li></ol><b style='color: red'>Note : Do not open any other tab or search in other window your test will be auto submitted & session will be expired.</b>", function (result) {
+            bootbox.confirm("As soon as you click on OK , your time will start <br/> <ol><li>Try to attempt as many question as you can ,out of 45 questions.</li><li>You have 30 Minutes.</li><li>Your Form will be locked & you will be loged out after 30mins automatically.</li><li>No negative marking.</li><li>Click SAVE to submit your answer & move next</li><li>Click NEXT if you DONT want to save your answer & move next.</li><li>Click FINISH TEST if you are done before time gets over.</li><li>Dont play around login/logout , its ONE TIME LOGIN</li><li>Dont Refresh page , test will be over & you will be logged out</li><li>Do not switch window or tab , test will be over & you will be logged out</li></ol><b style='color: red'>Note : Do not open any other tab or search in other window your test will be auto submitted & session will be expired.</b>", function (result) {
               if (result == true) {
                   show_question_screen();
                   fetch_question();
@@ -191,8 +191,25 @@ var OnlineTest = function () {
           }
 
 
+          $(window).blur(function(){
+
+            console.log("blur")
+          });
+
+
+          $(window).focus(function(){
+            show_alert_and_logout();
+            console.log("focus")
+          });
+
+          function disableF5(e) { if ((e.which || e.keyCode) == 116 || (e.which || e.keyCode) == 82) e.preventDefault(); };
+
+          $(document).ready(function(){
+            $(document).on("keydown", disableF5);
+          });
+
           var start_timer = function(){
-            var counter = 15;
+            var counter = 30;
             $("#timer_container").html(counter);
             var interval = setInterval(function() {
               counter--;
