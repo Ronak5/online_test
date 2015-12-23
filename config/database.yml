@@ -20,7 +20,7 @@ production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: online_test_production
+  database: gkmit_production
   pool: 5
   username: root
   host: localhost
