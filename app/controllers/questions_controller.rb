@@ -14,10 +14,6 @@ class QuestionsController < ApplicationController
       end
     index = index - 1
     end
-    p "*****"
-    p @question.id
-    p "*****"
-
     if(index == 0)
       render :json => {}, :status => :unprocessable_entity
     else

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'questions/:user_id/get_random_question' => 'questions#get_random_question'
   get 'results/:user_id/get_attempts' => 'results#get_attempts'
 
+  get 'users/show_info' => 'users#show_info'
   resources :users
   resources :answers
   resources :questions

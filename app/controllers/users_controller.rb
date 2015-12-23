@@ -1,10 +1,15 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
+
+
+  def show_info
+    render 'show_info', :layout => false
+  end
   # GET /users
   # GET /users.json
   def index
     @users = User.all
+    render :json => @users.to_json(:methods => [:get_total_attempts , :get_correct_answer] ), :status => :ok
   end
 
   # GET /users/1
