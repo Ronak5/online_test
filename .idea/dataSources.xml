@@ -4,14 +4,14 @@
     <data-source source="LOCAL" name="Rails online_test: development" uuid="a3337cf1-d56f-4887-8194-b07f188bd92a">
       <driver-ref>sqlite.xerial</driver-ref>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://127.0.0.1/online_test_development</jdbc-url>
+      <jdbc-url>jdbc:postgresql://127.0.0.1/gkmit_development</jdbc-url>
       <user-name>root</user-name>
       <libraries />
     </data-source>
     <data-source source="LOCAL" name="Rails online_test: test" uuid="663b92fc-9938-449a-88a5-51b9c2a77758">
       <driver-ref>postgresql</driver-ref>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://127.0.0.1/online_test_developments</jdbc-url>
+      <jdbc-url>jdbc:postgresql://127.0.0.1/gkmit_developments</jdbc-url>
       <user-name>root</user-name>
       <libraries />
     </data-source>
