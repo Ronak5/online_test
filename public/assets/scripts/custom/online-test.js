@@ -72,11 +72,11 @@ var OnlineTest = function () {
           })
           $("#save_answer_btn").unbind();
           $("#save_answer_btn").click(function(){
-            if (!$("input[name='optionsRadios']:checked").val()) {
+            if (!$("input[name='optionsRadios']:checked").val() && question_attempted <= 45) {
               bootbox.alert('Nothing is selected , first select answer to save !');
               return false;
             }
-            else if(question_attempted >= 45)
+            else if(question_attempted > 45)
             {
               show_alert_and_logout();
             }
@@ -97,8 +97,14 @@ var OnlineTest = function () {
               url : "/results",
               type: "POST",
               format: "JSON",
-              async: false,
+              async: true,
               data: {authenticity_token:AUTH_TOKEN, result:input_data},
+              beforeSend: function() {
+                modal_box = bootbox.dialog({
+                  closeButton: false,
+                  message: '<img src="/assets/img/booking_loading.gif"/><b>Please wait ! Question is loading ...</b>'
+                });
+              },
               success: function(data, textStatus, jqXHR)
               {
                 $.gritter.add({
@@ -120,7 +126,7 @@ var OnlineTest = function () {
                 });
               }
             });
-            $('input[name=optionsRadios]:checked').parent().removeClass("checked")
+            modal_box.modal('hide');
             fetch_question();
           }
 
@@ -151,7 +157,7 @@ var OnlineTest = function () {
               beforeSend: function() {
                 modal_box = bootbox.dialog({
                   closeButton: false,
-                  message: '<b>Please wait ! Question is loading ...</b>'
+                  message: '<img src="/assets/img/booking_loading.gif"/><b>Please wait ! Question is loading ...</b>'
                 });
               },
               success: function(data, textStatus, jqXHR)
@@ -171,7 +177,7 @@ var OnlineTest = function () {
                    // do something with `item` (or `this` is also `item` if you like)
                  });
                }
-               
+
                modal_box.modal('hide');
               },
               error: function (jqXHR, textStatus, errorThrown)
