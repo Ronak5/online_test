@@ -4,15 +4,16 @@ class QuestionsController < ApplicationController
     total_count = Question.all.count
     offset = rand(total_count)
     @question = Question.offset(offset).first
-    while (Result.where(:question_id => @question.id , :user_id => params[:user_id]).count != 0)
-      @question = Question.offset(offset).first
-    end
     p "*****"
     p @question.id
     p "*****"
     render :json => @question.to_json(:methods => [:get_options] ), :status => :ok
   end
 
+  # def get_all_question
+  #   @questions = Question.all
+  #   render :json => @question.to_json(:methods => [:get_options] ), :status => :ok
+  # end
 
   def create
     params.permit!
