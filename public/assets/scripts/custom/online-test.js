@@ -191,16 +191,16 @@ var OnlineTest = function () {
           }
 
 
-          $(window).blur(function(){
-
-            console.log("blur")
-          });
-
-
-          $(window).focus(function(){
-            show_alert_and_logout();
-            console.log("focus")
-          });
+//          $(window).blur(function(){
+//
+//            console.log("blur")
+//          });
+//
+//
+//          $(window).focus(function(){
+//            show_alert_and_logout();
+//            console.log("focus")
+//          });
 
           function disableF5(e) { if ((e.which || e.keyCode) == 116 || (e.which || e.keyCode) == 82) e.preventDefault(); };
 
